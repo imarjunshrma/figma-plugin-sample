@@ -1,40 +1,49 @@
-Below are the steps to get your plugin running. You can also find instructions at:
+# 🎨 Figma Card Generator – Create Stunning Promo Cards in Seconds
 
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
+**Figma Card Generator** is a versatile plugin built to automate the creation of stylish promo cards, banners, and content visuals directly inside Figma. Customize text, fonts, colors, spacing, and layouts using an intuitive spreadsheet-driven interface – perfect for marketers, designers, and developers who want fast, beautiful, and consistent visuals.
 
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+Whether you're generating one design or 100, this plugin handles layout, typography, image placement, and formatting with precision.
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
+---
 
-  https://nodejs.org/en/download/
+### ✨ Features
 
-Next, install TypeScript using the command:
+- 🧠 **Smart Design Automation** – Upload structured data to generate consistent, pixel-perfect cards
+- 🖋️ **Full Typography Control** – Customize fonts, size, line height, spacing, and more
+- 🎨 **Custom Color Themes** – Use gradients, brand colors, or custom palettes
+- 🖼️ **Image & Logo Support** – Easily map images via hashes for brand logos or food visuals
+- 📐 **Responsive Layout** – Auto-calculated spacing with intelligent grid layout
+- 🧾 **Detailed Documentation** – Includes guides for font use, color codes, and Figma structure
 
-  npm install -g typescript
+---
 
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
+### 🚀 Use Cases
 
-  npm install --save-dev @figma/plugin-typings
+- Social Media Cards  
+- Product Promotions  
+- Discount Offers & Ads  
+- Content Banners  
+- Auto-generated Campaign Graphics
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+---
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+### 📎 How it Works
 
-For more information, visit https://www.typescriptlang.org/
+1. Upload a spreadsheet (CSV or structured JSON)
+2. Configure your fonts, styles, and color themes
+3. The plugin auto-generates all cards inside Figma
+4. Export, edit, or reuse – fully editable vector outputs
 
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
+---
 
-We recommend writing TypeScript code using Visual Studio code:
+### 🧪 Try It, Fork It, Extend It
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "npm: watch". You will have to do this again every time
-    you reopen Visual Studio Code.
+This plugin was made to be extended and forked. Feel free to modify it for your custom card designs, brand toolkits, or team workflows!
 
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+---
+
+### 🔗 Keywords
+
+`figma plugin`, `card generator`, `promo design`, `banner creator`, `marketing design`, `auto layout`, `typography tool`, `Figma UI automation`
+
+---
