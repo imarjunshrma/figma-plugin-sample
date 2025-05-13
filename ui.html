@@ -1,0 +1,163 @@
+<!-- <h2>Shape Creator</h2>
+<p>Count: <input id="count" type="number" value="5"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button> -->
+<button data-id="3">Card</button>
+<script>
+  const figmaUrl = "https://www.figma.com";
+  const appUrl = "";
+  const allowedOrigins = [appUrl, figmaUrl];
+  const pluginId = "1504181286246532194";
+  // Set the body margin to 0
+  document.body.style.margin = 0;
+  document.body.style.padding = 0;
+  //  document.body.style.marginBottom = "20px";
+  document.body.style.overflowY = "hidden";
+
+  const iframe = document.getElementById("iframe1504181286246532194");
+
+
+
+  //send message to parent - code.ts
+
+  const sendMessageToPlugin = (pluginMessage) => {
+    console.log('plugin message',pluginMessage)
+    parent.postMessage(
+      { pluginMessage: pluginMessage, pluginId: pluginId },
+      figmaUrl
+    )
+  }
+
+  //send message to child iframe
+  const sendMessageToIframe = (message) => {
+      iframe.contentWindow.postMessage(message, appUrl);
+  }
+   
+  //listen from messages those are getting from plugin-code.ts
+  const listenPluginMessages = (pluginMessage) => {
+         const {type,data} = pluginMessage;
+         console.log("listening from plugin",pluginMessage);
+        // sendMessageToIframe({ type, data });
+    
+  }
+
+   //listen from messages those are getting from iframe-child
+   const listenIframeMessages = (type,data) => {
+    if(type === "plugin-dimensions"){
+      //get plugin dimensions and send to iframe
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const data = { width, height };
+        sendMessageToIframe({ type: "plugin-dimensions", data: data });
+    }else if(type === "sheet-data-dummy"){
+      console.log("data",data);
+      sendMessageToPlugin({ type, data } )
+    }{
+      //other events send to code.ts
+      sendMessageToPlugin({ type, data } )
+    // console.log("listen frame messages",type,data);
+    
+    }
+   }
+
+   //listen all messages
+  const onMessage = (event) => {
+    //check origin
+    // if (!allowedOrigins.includes(event.origin)) return;
+
+    const pluginMessage = event.data?.pluginMessage;
+    //plugin message handle
+    if (pluginMessage) {
+      //message from plugin ts file
+      listenPluginMessages(pluginMessage);
+    } else {
+      //messages from iframe
+      const type = event.data.type;
+      const data = event.data.data;
+      listenIframeMessages(type,data); }
+  }
+
+
+  const data = {
+  sheetData: [
+    {
+      name: "Cheesy Delight Pizza",
+      offer: "30% Off Today!",
+      desc: "Hot, cheesy, and topped with premium ingredients.",
+      brand: "Pizza Planet",
+      logoHash: null,
+      foodImageHash: null,
+      foodImageHashArray: [],
+      tsc: "Valid until midnight."
+    },
+    {
+      name: "Spicy Tandoori Wrap",
+      offer: "Buy 1 Get 1 Free",
+      desc: "Grilled and loaded with Indian spices.",
+      brand: "Wrap World",
+      logoHash: null,
+      foodImageHash: null,
+      foodImageHashArray: [],
+      tsc: "Only on orders above ₹199."
+    }
+  ],
+  cardType: "Card3",
+  cardVersion: "Version 1",
+  offer: {
+    font: '',
+    style: '',
+    size: 28,
+    letterSpacing: 1,
+    lineHeight: 32
+  },
+  copy: {
+    font: "",
+    style: "",
+    size: 20,
+    letterSpacing: 0.5,
+    lineHeight: 28
+  },
+  desc: {
+    font: "",
+    style: "",
+    size: 18,
+    letterSpacing: 0.25,
+    lineHeight: 26
+  },
+  cta: {
+    font: "",
+    style: "",
+    size: 22,
+    letterSpacing: 0.8,
+    lineHeight: 30
+  },
+  colors: {
+    background: "#FFFFFF",
+    text: "#000000",
+    primary: "#FF5733",
+    secondary: "#FFE933",
+    gradientColor1: "#FF6B6B",
+    gradientColor2: "#FFD93D",
+    gradient: ["#FF6B6B", "#FFD93D"]
+  }
+};
+
+    const buttons = document.querySelectorAll("button");
+  buttons.forEach(btn => {
+    let id = btn.dataset.id;
+    btn.addEventListener("click",()=>{
+      sendMessageToPlugin({type:'sheet-data',data:data})
+    })
+  })
+
+  //load
+  //listen for message
+  window.addEventListener("message", onMessage);
+  window.addEventListener('resize',()=>{
+    const width = window.innerWidth;
+        const height = window.innerHeight;
+        const data = { width, height };
+        sendMessageToIframe({ type: "plugin-dimensions", data: data });
+        sendMessageToPlugin({ type:"resize-frame" } )
+  })
+</script>
